@@ -18,9 +18,6 @@
 
   export default {
     name: 'inputText',
-    components: {
-
-    },
     data() {
       return {
         text: ''
@@ -34,12 +31,15 @@
     methods: {
       ...mapActions(['getStrings']),
       ...mapMutations([
-        'SET_STRINGS'
+        'SET_STRINGS',
+        'SET_LOADING'
       ]),
       async search() {
         this.SET_STRINGS(0)
-        let res
-        if (this.text) this.getStrings(this.text)
+        if (this.text) {
+          this.SET_LOADING(true)
+          this.getStrings(this.text)
+        }
       }
     }
   }

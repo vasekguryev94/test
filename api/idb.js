@@ -48,7 +48,6 @@ export default {
       let numberOfStrings = 0
       store.openCursor().onsuccess = e => {
         const cursor = e.target.result
-        debugger
         if (cursor) {
           cursor.value.forEach(value => {
             if (value.startsWith(text)) numberOfStrings++;

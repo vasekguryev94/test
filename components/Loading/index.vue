@@ -1,13 +1,20 @@
 <template>
-  <v-progress-circular
-    :rotate="-90"
-    :size="100"
-    :width="15"
-    :value="progress"
-    color="primary"
-  >
-    {{ progress }}
-  </v-progress-circular>
+  <div>
+    <v-row style="margin-bottom: 10px">
+      <span>Generate data</span>
+    </v-row>
+    <v-row>
+      <v-progress-circular
+        :rotate="-90"
+        :size="100"
+        :width="15"
+        :value="progress"
+        color="primary"
+      >
+        {{ progress }}
+      </v-progress-circular>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -18,9 +25,6 @@
 
   export default {
     name: 'loading',
-    components: {
-
-    },
     data() {
       return {
         counter: 0,

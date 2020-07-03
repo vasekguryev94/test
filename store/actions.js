@@ -9,7 +9,7 @@ export default {
   },
   async getStrings ({ commit }, text) {
     let strings = await api.getStrings(text)
-    debugger
     commit('SET_STRINGS', strings)
+    commit('SET_LOADING', false)
   }
 }
