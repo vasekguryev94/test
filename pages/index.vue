@@ -28,9 +28,6 @@
       finishLoading(value) {
         this.loaded = value
       }
-    },
-    mounted() {
-
     }
   }
 </script>

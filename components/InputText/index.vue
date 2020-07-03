@@ -9,7 +9,7 @@
       color="primary"
       @click="search"
     >Search</v-btn>
-    {{ 'Total: ' + total }}
+    {{ 'Total: ' + strings }}
   </v-col>
 </template>
 
@@ -28,32 +28,19 @@
     },
     computed: {
       ...mapState({
-        power: state => state.power,
-        total: state => state.total
+        strings: state => state.strings
       })
     },
     methods: {
       ...mapActions(['getStrings']),
       ...mapMutations([
-        'SET_INPUT_TEXT',
-        'SET_TOTAL'
+        'SET_STRINGS'
       ]),
-      search() {
-        this.SET_TOTAL(0)
-        const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        let hs = []
-
-        hs[0] = possible.indexOf(this.text[0]) + 1
-        for (let i = 1; i < this.text.length; i++) {
-          const key = possible.indexOf(this.text[i]) + 1
-          hs[i] = hs[i - 1] + this.power[i] * key;
-        }
-        this.SET_INPUT_TEXT(hs)
-        this.getStrings()
+      async search() {
+        this.SET_STRINGS(0)
+        let res
+        if (this.text) this.getStrings(this.text)
       }
-    },
-    mounted() {
-
     }
   }
 </script>
