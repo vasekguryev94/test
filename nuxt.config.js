@@ -37,6 +37,10 @@ module.exports = {
   },
   plugins: [
     '@plugins/vuetify'
-  ]
+  ],
+  mode: 'spa',
+  router: {
+    base: '/test/'
+  }
 }
 
