@@ -1,15 +1,25 @@
 <template>
-  <v-col cols="12" sm="6" md="3">
-    <v-text-field
-      label="Text"
-      solo
-      v-model="text"
-    />
-    <v-btn
-      color="primary"
-      @click="search"
-    >Search</v-btn>
-    {{ 'Total: ' + strings }}
+  <v-col cols="12" sm="6" md="4">
+    <h1>Enter your search text</h1>
+    <v-row
+      justify="center"
+      align="center"
+      class="mt-3 mb-6"
+    >
+      <v-text-field
+        label="Text"
+        solo
+        v-model="text"
+        hide-details
+      />
+      <v-btn
+        large
+        class="ml-6"
+        color="primary"
+        @click="search"
+      >Search</v-btn>
+    </v-row>
+    <h3>{{ 'Found matches: ' + strings }}</h3>
   </v-col>
 </template>
 

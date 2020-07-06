@@ -4,15 +4,43 @@ const DB_VERSION = 1
 let DB
 
 export default {
-  async deleteDB() {
+  async getObjectStoreCount() {
+    const objectStore = await this.getObjectStore()
+
     return new Promise((resolve, reject) => {
-      const request = window.indexedDB.deleteDatabase(DB_NAME)
-      request.onsuccess = () => {
-        resolve()
+      const countRequest = objectStore.count()
+
+      countRequest.onsuccess = e => {
+        resolve(e.target.result)
       }
-      request.onerror = e => {
-        console.log('Error deleting db', e)
-        reject('Error')
+      countRequest.onerror = e => reject(e)
+    })
+  },
+  async getObjectStore() {
+    const db = await this.getDb(),
+      tx = db.transaction([STORAGE_NAME], 'readwrite'),
+      objectStore = tx.objectStore(STORAGE_NAME)
+
+    return objectStore
+  },
+  async clearDB() {
+    const objectStore = await this.getObjectStore()
+
+    return new Promise((resolve, reject) => {
+      const req = objectStore.clear()
+
+      req.onsuccess = function (e) {
+        resolve(e)
+        console.log("Object store cleared successfuly");
+      }
+      req.onerror = function (e) {
+        // eslint-disable-next-line prefer-promise-reject-errors
+        reject(e)
+        console.log("Object store couldn't be cleared");
+      }
+      req.onblocked = function (e) {
+        reject(e)
+        console.log("Couldn't clear object store due to the operation being blocked");
       }
     })
   },

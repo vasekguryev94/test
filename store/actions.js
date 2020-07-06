@@ -1,8 +1,8 @@
 import api from '~/api/idb'
 
 export default {
-  deleteDB() {
-    return api.deleteDB()
+  clearDB() {
+    return api.clearDB()
   },
   addStringToDb ({}, string) {
     return api.saveString(string)
@@ -11,5 +11,8 @@ export default {
     let strings = await api.getStrings(text)
     commit('SET_STRINGS', strings)
     commit('SET_LOADING', false)
+  },
+  getCount() {
+    return api.getObjectStoreCount()
   }
 }

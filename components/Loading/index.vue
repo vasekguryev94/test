@@ -1,24 +1,21 @@
 <template>
   <div>
-    <v-row style="margin-bottom: 10px">
-      <span>Generate data</span>
-    </v-row>
-    <v-row>
-      <v-progress-circular
-        :rotate="-90"
-        :size="100"
-        :width="15"
-        :value="progress"
-        color="primary"
-      >
-        {{ progress }}
-      </v-progress-circular>
-    </v-row>
+    <h3>Generate data</h3>
+    <v-progress-circular
+      :rotate="-90"
+      :size="100"
+      :width="15"
+      :value="progress"
+      color="primary"
+      class="mt-6"
+    >
+      {{ progress }}
+    </v-progress-circular>
   </div>
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapActions, mapState } from 'vuex'
 
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     chars = possible.split('');
@@ -31,8 +28,13 @@
         progress: 0
       }
     },
+    computed: {
+      ...mapState({
+        loading: state => state.loading
+      })
+    },
     methods: {
-      ...mapActions(['getStrings', 'addStringToDb', 'deleteDB']),
+      ...mapActions(['getStrings', 'addStringToDb']),
       async addString () {
         let strings = [];
         while (this.counter < 100) {
@@ -52,11 +54,10 @@
         return text.join('')
       }
     },
-    async mounted() {
+    mounted() {
       if (!window.indexedDB) {
         window.alert("Ваш браузер не поддерживает стабильную версию IndexedDB. Такие-то функции будут недоступны");
       }
-      await this.deleteDB()
       this.addString()
     }
   }
